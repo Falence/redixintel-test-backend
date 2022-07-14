@@ -7,8 +7,8 @@ import { google } from 'googleapis';
 import { CreateAccessToken } from './createAccessToken';
 import * as config from 'config';
 
-const googleConfig = config.get('google');
-console.log(googleConfig);
+// const googleConfig = config.get('google');
+// console.log(googleConfig);
 
 // const CLIENT_ID = googleConfig.CLIENT_ID;
 // const CLIENT_SECRET = googleConfig.CLIENT_SECRET;
