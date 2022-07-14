@@ -32,9 +32,9 @@ export const ACCESS_TOKEN = new CreateAccessToken().generateAccessToken();
         auth: {
           type: 'OAuth2',
           user: 'falencelemungoh@gmail.com',
-          clientId: CLIENT_ID,
-          clientSecret: CLIENT_SECRET,
-          refreshToken: REFRESH_TOKEN,
+          clientId: process.env.CLIENT_ID || CLIENT_ID,
+          clientSecret: process.env.CLIENT_SECRET || CLIENT_SECRET,
+          refreshToken: process.env.REFRESH_TOKEN || REFRESH_TOKEN,
           accessToken: ACCESS_TOKEN,
         },
       },
