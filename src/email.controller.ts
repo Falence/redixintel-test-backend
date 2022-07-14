@@ -1,13 +1,34 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Body, Controller, Post } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User, UserDocument } from './user.schema';
 
 @Controller('email')
 export class EmailController {
-  constructor(private mailService: MailerService) {}
+  constructor(
+    private mailService: MailerService,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+  ) {}
 
   @Post()
-  async submitForm(@Body('email') email: string, @Body('name') name: string) {
-    return this.sendEmail(email, name);
+  async submitForm(@Body() user: User) {
+    if (await this.userExists(user.email)) {
+      return `exists`;
+    }
+    const newUser = await this.createUser(user);
+    return this.sendEmail(newUser.email, newUser.name);
+  }
+
+  async createUser(user: User): Promise<User> {
+    const newUser = new this.userModel(user);
+    return newUser.save();
+  }
+
+  async userExists(email: string) {
+    const user = await this.userModel.findOne({ email });
+    if (user) return true;
+    return false;
   }
 
   async sendEmail(email: string, name: string) {

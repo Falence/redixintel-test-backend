@@ -5,9 +5,11 @@ import { AppService } from './app.service';
 import { EmailController } from './email.controller';
 import { google } from 'googleapis';
 import { CreateAccessToken } from './createAccessToken';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './user.schema';
 
-// I've hardcoded these values because for some reason, I keep getting errors
-// on Heroku after deploying
+// This is bad practice but for the sake of this basic application,
+// I'll just hardcode all config values
 const CLIENT_ID =
   '227207303756-c49kv1l616v0h3lsudcvnnqcefg5b8ob.apps.googleusercontent.com';
 const CLIENT_SECRET = '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';
@@ -39,6 +41,10 @@ export const ACCESS_TOKEN = new CreateAccessToken().generateAccessToken();
         },
       },
     }),
+    MongooseModule.forRoot(
+      'mongodb+srv://redixintel:redixintel@cluster0.aeho8.mongodb.net/?retryWrites=true&w=majority',
+    ),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [AppController, EmailController],
   providers: [AppService],
