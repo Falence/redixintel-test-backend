@@ -13,6 +13,7 @@ export class EmailController {
 
   @Post()
   async submitForm(@Body() user: User) {
+    user.email = user.email.toLowerCase();
     if (await this.userExists(user.email)) {
       return `exists`;
     }
