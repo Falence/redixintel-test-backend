@@ -5,15 +5,6 @@ import { AppService } from './app.service';
 import { EmailController } from './email.controller';
 import { google } from 'googleapis';
 import { CreateAccessToken } from './createAccessToken';
-import * as config from 'config';
-
-// const googleConfig = config.get('google');
-// console.log(googleConfig);
-
-// const CLIENT_ID = googleConfig.CLIENT_ID;
-// const CLIENT_SECRET = googleConfig.CLIENT_SECRET;
-// const REDIRECT_URI = googleConfig.REDIRECT_URI;
-// const REFRESH_TOKEN = googleConfig.REFRESH_TOKEN;
 
 // I've hardcoded these values because for some reason, I keep getting errors
 // on Heroku after deploying
